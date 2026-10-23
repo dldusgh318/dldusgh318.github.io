@@ -1,0 +1,15 @@
+{% assign p = site.data.projects | where: 'slug', page.project | first %}
+<section class="project-detail-head">
+  <p class="project-detail-summary">{{ p.summary }}</p>
+  <p class="project-role">{{ p.role }}</p>
+  <p class="project-stack">{{ p.stack | join: ' / ' }}</p>
+  <dl class="project-metrics project-detail-metrics">
+    {% for m in p.metrics %}
+      <div>
+        <dt>{{ m.value }}</dt>
+        <dd>{{ m.label }}</dd>
+      </div>
+    {% endfor %}
+  </dl>
+  {% if p.note %}<p class="project-note">* {{ p.note }}</p>{% endif %}
+</section>

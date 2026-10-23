@@ -1,6 +1,7 @@
 ---
 title: "Grafana Cloud로 운영용 대시보드와 Discord 알림 만들기"
 date: 2026-09-07 16:20:00 +0900
+project: chungbazi
 categories: [Infra, 모니터링]
 tags: [grafana-cloud, promql, logql, alerting, discord]
 series: Grafana Cloud로 모니터링 비용 줄이기

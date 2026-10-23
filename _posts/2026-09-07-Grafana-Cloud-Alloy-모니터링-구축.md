@@ -1,6 +1,7 @@
 ---
 title: "모니터링 서버 없이 Grafana Cloud + Alloy로 모니터링 구축하기"
 date: 2026-09-07 16:00:00 +0900
+project: chungbazi
 categories: [Infra, 모니터링]
 tags: [grafana-cloud, alloy, prometheus, loki, ec2]
 series: Grafana Cloud로 모니터링 비용 줄이기

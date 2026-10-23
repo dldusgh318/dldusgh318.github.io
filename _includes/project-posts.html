@@ -1,0 +1,16 @@
+{% assign related = site.posts | where: 'project', page.project %}
+<h2 id="related-posts">관련 글</h2>
+{% if related.size > 0 %}
+  <ul class="project-post-list">
+    {% for post in related %}
+      <li>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <span class="project-post-date">{{ post.date | date: '%Y.%m.%d' }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="project-note">아직 이 프로젝트로 쓴 글이 없어요. 곧 정리해서 올릴게요!</p>
+{% endif %}
+
+<p><a href="{{ '/projects/' | relative_url }}">← 전체 프로젝트 보기</a></p>

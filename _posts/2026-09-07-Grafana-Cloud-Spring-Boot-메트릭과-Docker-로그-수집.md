@@ -1,6 +1,7 @@
 ---
 title: "Spring Boot 메트릭과 Docker 로그를 Grafana Cloud로 보내기"
 date: 2026-09-07 16:10:00 +0900
+project: chungbazi
 categories: [Infra, 모니터링]
 tags: [grafana-cloud, alloy, actuator, loki, docker]
 series: Grafana Cloud로 모니터링 비용 줄이기

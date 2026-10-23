@@ -1,16 +1,19 @@
+{% assign cards = site.data.projects %}
+{% if include.featured %}{% assign cards = site.data.projects | where: 'featured', true %}{% endif %}
 <ol class="project-list">
-  {% for p in site.data.projects %}
+  {% for p in cards %}
     <li class="project-row">
       <span class="project-index">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
 
       <div class="project-main">
         <h3 class="project-name">
-          {{ p.name }}
+          <a href="{{ '/projects/' | append: p.slug | append: '/' | relative_url }}">{{ p.name }}</a>
           <span class="project-summary">{{ p.summary }}</span>
         </h3>
         <p class="project-role">{{ p.role }}</p>
         <p class="project-hook">{{ p.hook }}</p>
         <p class="project-stack">{{ p.stack | join: ' / ' }}</p>
+        <a class="project-more" href="{{ '/projects/' | append: p.slug | append: '/' | relative_url }}">자세히 보기 →</a>
       </div>
 
       <div class="project-side">

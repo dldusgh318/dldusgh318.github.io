@@ -1,37 +1,69 @@
-# 홈과 Projects 탭의 대표 프로젝트 카드
+# 홈과 Projects 탭의 프로젝트 카드 (이력서 기준)
+# featured: true 인 프로젝트만 홈에 노출한다
 # 수치는 측정 조건과 함께 쓴다 (운영 성과와 로컬 실험을 구분)
 
-- name: 청바지
-  summary: 청년 정책 맞춤 추천 서비스
-  role: Backend · 실서비스 운영
-  hook: 외부 정책 데이터를 서비스 도메인으로 바꾸고, 느린 API는 DB까지 내려가 추적했습니다.
+- slug: chungbazi
+  name: 청바지
+  summary: 청년 정책 알림 서비스
+  role: Backend · 개발·운영 · 2025.01 ~ 현재
+  featured: true
+  hook: 로그 누적 장애에 대응한 뒤, 관측·알림·자동 복구까지 반복되지 않는 운영 환경을 만들었습니다.
   metrics:
-    - value: 634 → 178ms
+    - value: 535 → 239ms
       label: 최근 조회 API p95
-    - value: 41 → 149 req/s
+    - value: 52 → 132 req/s
       label: 처리량
-  note: 100K 이벤트 · 20 VUs 로컬 격리 벤치마크
-  stack: [Spring Boot, MySQL, Grafana, AWS]
+  note: 로컬 부하 실험 · 조회 이력 10만 건 · 동시 20명 · DB 연결 풀 10개 유지
+  stack: [Spring Boot, MySQL, FCM, AWS, Grafana Cloud]
 
-- name: 모앤디
-  summary: 시술 모델–디자이너 매칭 서비스
-  role: Backend Lead · 2025.10 ~ 2026.03
-  hook: “커서 페이지네이션은 항상 오프셋보다 빠를까?”를 동점 반례와 실행계획으로 직접 검증했습니다.
+- slug: secause
+  name: SeCause
+  summary: AI 기반 코드 보안 취약점 분석 서비스
+  role: Backend · 졸업 프로젝트 · 2026.04 ~ 현재
+  hook: Spring 비동기 전달과 Redis/RQ 작업 큐로 분석 접수와 실행을 분리하고, 그 사이의 실패 구간을 실험으로 찾았습니다.
+  metrics:
+    - value: 3,189 → 221ms
+      label: 요청 p95 (동기 → 비동기)
+    - value: 140건 중 36건
+      label: 포화 시 PENDING으로 남은 요청
+  note: Spring 전달 구간 로컬 실험 · H2 · 모의 FastAPI 수락 3초 · 동시 100건 (RQ·분석 성능 측정 아님)
+  stack: [Spring Boot, GitHub API, FastAPI, Redis / RQ]
+
+- slug: moandi
+  name: 모앤디
+  summary: 시술 모델–디자이너 매칭 플랫폼
+  role: Backend Lead · 2025.10 ~ 2026.02
+  featured: true
+  hook: "“커서 페이지네이션은 항상 오프셋보다 빠를까?”를 동점 반례와 실행계획으로 직접 검증했습니다."
   metrics:
     - value: 6/12 → 0
-      label: 동점 데이터 누락 (id 커서 → 복합 커서)
+      label: 동점 데이터 누락 (ID 커서 → 복합 커서)
     - value: 24.7 → 0.54ms
-      label: 최신순 1,000페이지 SQL p50
-  note: 100K 합성 데이터 · MySQL SQL 격리 실험
-  stack: [Spring Boot, MySQL, S3, Lambda]
+      label: 최신순 1,000페이지 SQL
+  note: 로컬 SQL 실험 · MySQL 8.0.46 · 합성 공고 10만 건 · LIMIT 21
+  stack: [Spring Boot, JPA / QueryDSL, MySQL, AWS S3, FCM]
 
-- name: 직행
-  summary: 채용공고 통합 검색 서비스 · 기업 연계 프로젝트
-  role: Backend · 기획 회의 참여 · 약 5주
-  hook: 5주 동안 매일 기획·디자인·FE와 회의하며 기업의 요구사항을 동작하는 기능으로 바꿨습니다.
+- slug: teamficial
+  name: TEAMFICIAL
+  summary: 소프트스킬 기반 팀빌딩 서비스
+  role: Backend Lead · KUSITMS · 2025.10 ~ 2026.01
+  hook: 지원·모집 상태의 조합을 팀과 합의해 삭제 규칙을 만들고, 반복되던 지원자 수 집계를 Redis 캐시로 바꿨습니다.
+  metrics:
+    - value: MGET · MSET
+      label: 지원자 수 일괄 조회·저장
+    - value: INCR
+      label: 지원 시 캐시 즉시 갱신
+  stack: [Spring Boot, JPA, Redis]
+
+- slug: jikhaeng
+  name: 직행
+  summary: 채용공고 통합 검색 서비스 · KUSITMS 기업과제
+  role: Backend · 2025.08 ~ 2025.09 · 5주
+  featured: true
+  hook: 취업·이직 준비자 16명을 인터뷰하며 기획에 참여하고, TMAP API의 호출 제약을 팀과 조율했습니다.
   metrics:
     - value: 공동 1위
-      label: KUSITMS 기업 연계 최우수상
-    - value: OAuth · JWT · TMAP
-      label: 인증 구조와 통근시간 필터링
-  stack: [Spring Boot, Kakao OAuth2, JWT, NCP]
+      label: KUSITMS 기업과제 최우수상
+    - value: OAuth2 · JWT · NCP
+      label: 인증, 통근 시간 필터, 배포
+  stack: [Spring Boot, Kakao OAuth2, JWT, TMAP API, NCP]
