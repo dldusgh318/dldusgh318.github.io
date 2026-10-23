@@ -1,0 +1,240 @@
+---
+---
+
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}',
+  $font-family-base: ('Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif),
+  $font-family-heading: ('Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif)
+);
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+/* ---------- 포인트 색: 테라코타 오렌지 ---------- */
+@mixin accent-light {
+  --accent: #e0603a;
+  --accent-soft: rgb(224 96 58 / 10%);
+  --link-color: #c9512d;
+  --link-underline-color: rgb(224 96 58 / 35%);
+  --card-border: #ececec;
+}
+
+@mixin accent-dark {
+  --accent: #f08a65;
+  --accent-soft: rgb(240 138 101 / 12%);
+  --link-color: #f08a65;
+  --link-underline-color: rgb(240 138 101 / 35%);
+  --card-border: rgb(255 255 255 / 8%);
+}
+
+:root[data-mode='light'] { @include accent-light; }
+:root[data-mode='dark'] { @include accent-dark; }
+
+:root:not([data-mode]) {
+  @media (prefers-color-scheme: light) { @include accent-light; }
+  @media (prefers-color-scheme: dark) { @include accent-dark; }
+}
+
+#sidebar #avatar { box-shadow: 0 0 0 3px var(--accent); }
+#sidebar .nav-item.active .nav-link,
+#sidebar .nav-link:hover { color: var(--accent); }
+#toc-wrapper .toc-link.is-active-link,
+#toc-wrapper .is-active-link::before { color: var(--accent); background-color: var(--accent); }
+#toc-wrapper .toc-link.is-active-link { background-color: transparent; }
+
+/* ---------- 홈 소개 ---------- */
+.home-hero {
+  padding: 2.5rem 0 2rem;
+  border-bottom: 1px solid var(--card-border);
+  margin-bottom: 2rem;
+
+  .hero-eyebrow {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-sub {
+    color: var(--text-muted-color);
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  li {
+    font-size: 0.78rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+  }
+}
+
+.home-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 2.5rem 0 0;
+
+  h2 { font-size: 1.25rem; font-weight: 700; margin: 0; }
+  a { font-size: 0.9rem; }
+}
+
+/* ---------- 프로젝트: 번호 매긴 목록 ---------- */
+.project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 1rem;
+  border-top: 2px solid var(--heading-color);
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) 14rem;
+  gap: 0 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--card-border);
+
+  &:hover .project-name { color: var(--accent); }
+}
+
+.project-index {
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.project-main {
+  .project-name {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin: 0 0 0.25rem;
+    transition: color 0.15s ease;
+  }
+
+  .project-summary {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted-color);
+    margin-left: 0.35rem;
+  }
+
+  .project-role {
+    font-size: 0.8rem;
+    color: var(--text-muted-color);
+    margin: 0 0 0.75rem;
+  }
+
+  .project-hook {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin: 0 0 0.75rem;
+  }
+
+  .project-stack {
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--text-muted-color);
+    margin: 0;
+  }
+}
+
+.project-side {
+  .project-metrics {
+    display: grid;
+    gap: 0.9rem;
+    margin: 0;
+
+    div {
+      padding-left: 0.75rem;
+      border-left: 2px solid var(--accent);
+    }
+
+    dt {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--heading-color);
+      font-variant-numeric: tabular-nums;
+    }
+
+    dd {
+      font-size: 0.76rem;
+      margin: 0.1rem 0 0;
+      color: var(--text-muted-color);
+    }
+  }
+
+  .project-note {
+    font-size: 0.7rem;
+    color: var(--text-muted-color);
+    margin: 0.9rem 0 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-row {
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    gap: 1rem 0.75rem;
+  }
+
+  .project-index { font-size: 1.3rem; }
+  .project-side { grid-column: 2; }
+
+  .project-side .project-metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .project-main .project-summary {
+    display: block;
+    margin: 0.15rem 0 0;
+  }
+}
+
+/* ---------- 시리즈 ---------- */
+.series-nav {
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0 2rem;
+
+  .series-title { font-weight: 700; margin-bottom: 0.5rem; }
+  .series-count { color: var(--text-muted-color); font-weight: 400; }
+  ol { margin: 0; padding-left: 1.25rem; font-size: 0.92rem; }
+}
+
+.series-badge {
+  font-size: 0.72rem;
+  padding: 0.1rem 0.5rem;
+  margin-right: 0.35rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}

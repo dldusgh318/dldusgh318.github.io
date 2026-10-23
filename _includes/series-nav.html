@@ -1,0 +1,20 @@
+{% if page.series %}
+  {% assign series_posts = site.posts | where: 'series', page.series | sort: 'date' %}
+  <nav class="series-nav" aria-label="시리즈">
+    <p class="series-title">
+      <span class="series-badge">시리즈</span>
+      {{ page.series }} <span class="series-count">· {{ series_posts.size }}편</span>
+    </p>
+    <ol>
+      {% for p in series_posts %}
+        <li>
+          {% if p.url == page.url %}
+            <strong>{{ p.title }}</strong>
+          {% else %}
+            <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+{% endif %}

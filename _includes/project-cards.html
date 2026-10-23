@@ -1,0 +1,29 @@
+<ol class="project-list">
+  {% for p in site.data.projects %}
+    <li class="project-row">
+      <span class="project-index">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+
+      <div class="project-main">
+        <h3 class="project-name">
+          {{ p.name }}
+          <span class="project-summary">{{ p.summary }}</span>
+        </h3>
+        <p class="project-role">{{ p.role }}</p>
+        <p class="project-hook">{{ p.hook }}</p>
+        <p class="project-stack">{{ p.stack | join: ' / ' }}</p>
+      </div>
+
+      <div class="project-side">
+        <dl class="project-metrics">
+          {% for m in p.metrics %}
+            <div>
+              <dt>{{ m.value }}</dt>
+              <dd>{{ m.label }}</dd>
+            </div>
+          {% endfor %}
+        </dl>
+        {% if p.note %}<p class="project-note">* {{ p.note }}</p>{% endif %}
+      </div>
+    </li>
+  {% endfor %}
+</ol>
